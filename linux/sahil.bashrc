@@ -13,6 +13,9 @@ function color_my_prompt {
 color_my_prompt
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# This add notification when command completes in GNOME Terminal
+source /etc/profile.d/vte.sh
+
 #Aliases
 alias vi=vim
 
@@ -21,15 +24,19 @@ alias grep='grep --color=auto'
 
 # Git commands shortcuts
 alias gd='git diff'
+alias gds='git diff --cached --ignore-space-at-eol -b -w --ignore-blank-lines'
 alias gdt='git difftool'
 alias gs='git status'
 alias gco='git checkout'
+alias gcom='gco master'
 alias gp='git pull'
 alias gb='git branch'
 alias gst='git stash'
 alias gstp='git stash pop'
 
 alias ack='ack --ignore-dir target/ --ignore-dir .idea --ignore-dir build --ignore-dir dist'
+alias find_core_files="find . -name 'core.[[:digit:]]*' -type f"
+alias find_core_files_2="find . -regextype posix-extended -regex '^.*core\.[0-9]*'"
 alias find_without_node_modules='find . -type d \( -name build -o -name dist -o -name node_modules \) -prune -false -o -name'
 
 alias file_server="python3 -m http.server 0"
@@ -49,9 +56,27 @@ list_descendants ()
 }
 
 kill_tree() {
-        kill $2 `pstree -p $1 | grep -oP '(?<=\()[0-9]+(?=\))'`
+    kill $2 `pstree -p $1 | grep -oP '(?<=\()[0-9]+(?=\))'`
 }
 
+file_ansi_output() {
+    command=$@
+    script --flush --quiet --return /tmp/output.ansi --command "$command"
+}
+
+alias gitlab_curl='curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN"'
+
 # https://github.com/cykerway/complete-alias
-source $HOME/private-github/bashrc-file/complete_alias
+if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]]
+then
+    . $HOME/private/github/bashrc-file/bash_completion.d/complete_alias
+fi
 # Add this to end of actual bashrc - complete -F _complete_alias "${!BASH_ALIASES[@]}"
+
+# https://github.com/gradle/gradle-completion
+# source $HOME/private/github/bashrc-file/bash_completion.d/gradle-completion.bash
+
+subdir() {
+    command=$@
+    find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} "$command" \;
+}
