@@ -66,6 +66,13 @@ file_ansi_output() {
 
 alias gitlab_curl='curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN"'
 
+
+subdir() {
+    command=$@
+    find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} "$command" \;
+}
+
+
 # https://github.com/cykerway/complete-alias
 if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]]
 then
@@ -75,8 +82,3 @@ fi
 
 # https://github.com/gradle/gradle-completion
 # source $HOME/private/github/bashrc-file/bash_completion.d/gradle-completion.bash
-
-subdir() {
-    command=$@
-    find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} "$command" \;
-}
