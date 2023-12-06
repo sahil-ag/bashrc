@@ -69,7 +69,7 @@ alias gitlab_curl='curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN"'
 # https://github.com/cykerway/complete-alias
 if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]]
 then
-    . $HOME/private/github/bashrc-file/bash_completion.d/complete_alias
+    . $HOME/private/github/bashrc-file/linux/bash_completion.d/complete_alias
 fi
 # Add this to end of actual bashrc - complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
