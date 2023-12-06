@@ -11,7 +11,7 @@ Refer - https://sandfeld.net/powershell-load-your-functions-at-startup/
     ```ps1
     # Load own custom functions at startup
     $OwnFunctionsDir = "$env:USERPROFILE\Documents\WindowsPowerShell\Functions" # location of windows folder
-    Write-Host "Loading own PowerShell functions from:" -ForegroundColor Green
+    Write-Host "Loading custom PowerShell functions from:" -ForegroundColor Green
     Write-Host "$OwnFunctionsDir" -ForegroundColor Yellow
     Get-ChildItem "$OwnFunctionsDir\*.ps1" | %{.$_}
     Write-Host ''
