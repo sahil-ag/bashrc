@@ -41,6 +41,8 @@ alias find_without_node_modules='find . -type d \( -name build -o -name dist -o 
 
 alias file_server="python3 -m http.server 0"
 alias rsyncp="rsync --info=progress2"
+
+# FIXME: don't set if already set
 alias vscode="code"
 
 list_descendants ()
@@ -71,14 +73,3 @@ subdir() {
     command=$@
     find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} "$command" \;
 }
-
-
-# https://github.com/cykerway/complete-alias
-if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]]
-then
-    . $HOME/private/github/bashrc-file/linux/bash_completion.d/complete_alias
-fi
-# Add this to end of actual bashrc - complete -F _complete_alias "${!BASH_ALIASES[@]}"
-
-# https://github.com/gradle/gradle-completion
-# source $HOME/private/github/bashrc-file/bash_completion.d/gradle-completion.bash
