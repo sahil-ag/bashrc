@@ -37,6 +37,7 @@ alias gstp='git stash pop'
 alias ack='ack --ignore-dir target/ --ignore-dir .idea --ignore-dir build --ignore-dir dist'
 alias find_core_files="find . -name 'core.[[:digit:]]*' -type f"
 alias find_core_files_2="find . -regextype posix-extended -regex '^.*core\.[0-9]*'"
+alias find_hprof_files="find . -regextype posix-extended -regex '^.*\.hprof'"
 alias find_without_node_modules='find . -type d \( -name build -o -name dist -o -name node_modules \) -prune -false -o -name'
 
 alias file_server="python3 -m http.server 0"
